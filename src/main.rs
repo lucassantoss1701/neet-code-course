@@ -1,11 +1,30 @@
-mod remove_duplicates_from_sorted_array;
-mod remove_element_from_array;
+mod array;
+mod stack;
 
 fn main() {
-    let arr: &mut Vec<i64> = &mut vec![
-        3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 4, 5, 4, 2, 3, 2, 1, 2, 52, 2, 2, 2, 2, 2,
-    ];
+    let mut my_stack = stack::base::Stack::new(10);
 
-    let result = remove_element_from_array::execute(arr, 2);
-    println!("{:?}", result)
+    my_stack.push(2);
+    println!("{:?}", my_stack.values);
+
+    my_stack.push(6);
+    println!("{:?}", my_stack.values);
+
+    my_stack.push(9);
+    println!("{:?}", my_stack.values);
+
+    my_stack.push(5);
+    println!("{:?}", my_stack.values);
+
+    my_stack.pop();
+    println!("{:?}", my_stack.values);
+
+    my_stack.push(2);
+    println!("{:?}", my_stack.values);
+
+    my_stack.push(8);
+    println!("{:?}", my_stack.values);
+
+    my_stack.pop();
+    println!("{:?}", my_stack.values);
 }
