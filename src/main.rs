@@ -1,16 +1,16 @@
 mod array;
 mod stack;
+mod linkedlist;
 
 fn main() {
-    let is_valid = stack::valid_parentheses::is_valid("()".to_string());
-    println!("{is_valid}");
+   let mut linked = linkedlist::linked_list::LinkedList::new();
 
-    let is_valid = stack::valid_parentheses::is_valid("()[]{}".to_string());
-    println!("{is_valid}");
+    linked.insert_end(1);
+    linked.insert_end(4);
+    linked.insert_end(6);
+    linked.insert_end(3);
+    linked.insert_end(2);
 
-    let is_valid = stack::valid_parentheses::is_valid("(]".to_string());
-    println!("{is_valid}");
+    linked.print();
 
-    let is_valid = stack::valid_parentheses::is_valid("([])".to_string());
-    println!("{is_valid}");
 }
