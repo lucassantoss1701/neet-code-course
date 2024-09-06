@@ -1,9 +1,9 @@
 mod array;
-mod stack;
 mod linkedlist;
+mod stack;
 
 fn main() {
-   let mut linked = linkedlist::linked_list::LinkedList::new();
+    let mut linked = linkedlist::linked_list::LinkedList::new();
 
     linked.insert_end(1);
     linked.insert_end(4);
@@ -13,4 +13,5 @@ fn main() {
 
     linked.print();
 
+    linked.remove(2)
 }

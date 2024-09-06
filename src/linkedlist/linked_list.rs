@@ -1,27 +1,33 @@
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::fmt::Debug;
+use std::rc::Rc;
 
-pub struct Node<T> {
+#[derive(Debug)]
+pub struct Node<T: Debug> {
     value: T,
     next: Option<Rc<RefCell<Node<T>>>>,
 }
-impl<T> Node<T> {
-    fn new(val: i64) -> Self{
+impl<T: Debug> Node<T> {
+    fn new(val: T) -> Self {
         Node {
             value: val,
-            next: None
+            next: None,
         }
     }
 }
 
-pub struct LinkedList<T> {
+#[derive(Debug)]
+pub struct LinkedList<T: Debug> {
     head: Option<Rc<RefCell<Node<T>>>>,
     tail: Option<Rc<RefCell<Node<T>>>>,
 }
 
-impl<T> LinkedList<T> {
+impl<T: Debug> LinkedList<T> {
     pub fn new() -> Self {
-        LinkedList{head: None, tail: None}
+        LinkedList {
+            head: None,
+            tail: None,
+        }
     }
 
     pub fn insert_end(&mut self, val: T) {
@@ -41,10 +47,10 @@ impl<T> LinkedList<T> {
 
     pub fn remove(&mut self, index: usize) {
         let mut i = 0;
-        let mut curr = self.head.clone();
+        let mut curr: Option<Rc<RefCell<Node<T>>>> = self.head.clone();
 
         while i < index {
-            if let Some(ref current_node) = curr {
+            if let Some(current_node) = curr {
                 curr = current_node.borrow().next.clone();
                 i += 1;
             } else {
@@ -52,7 +58,7 @@ impl<T> LinkedList<T> {
             }
         }
 
-        if let Some(ref curr_node) = curr {
+        if let Some(curr_node) = curr {
             if let Some(ref next_node) = curr_node.borrow().next {
                 if Rc::ptr_eq(next_node, &self.tail.clone().unwrap()) {
                     self.tail = Some(curr_node.clone());
@@ -64,11 +70,6 @@ impl<T> LinkedList<T> {
     }
 
     pub fn print(&self) {
-        let curr = self.head.clone();
-        for curr_node in curr {
-            println!("{}", curr_node.borrow().value);
-            curr_node.borrow().next.as_ref().unwrap().borrow_mut().next = Some(Rc::clone(&curr_node));
-        }
-        println!();
+        println!("{:?}", self);
     }
 }
